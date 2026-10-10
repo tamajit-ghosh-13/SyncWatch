@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SyncWatch Local Test Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f0f11;
+      color: #e5e5e5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: #e50914;
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      background: #000;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    .info-card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .feature-banner {
+      background: rgba(229, 9, 20, 0.12);
+      border: 1px solid rgba(229, 9, 20, 0.35);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+    .instructions ol {
+      margin: 8px 0 0 20px;
+      padding: 0;
+      line-height: 1.6;
+      color: #a1a1aa;
+    }
+    .instructions b {
+      color: #fff;
+    }
+    .stats {
+      margin-top: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: #22c55e;
+      display: flex;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 SyncWatch Test Player <span class="badge">In-Page Popup & Space Sync</span></h1>
+    
+    <video id="player" controls playsinline>
+      <source src="/test.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="feature-banner">
+      ⚡ <b>In-Page Popup & Keyboard Sync Active:</b> Look at the bottom-right corner of the window for the floating <b>🎬 SyncWatch</b> widget. Press <b>Spacebar</b> on your keyboard at any time to toggle pause/play locally and across every connected peer!
+    </div>
+
+    <div class="info-card">
+      <div class="stats">
+        <span>Time: <span id="time">0.00</span>s</span>
+        <span>State: <span id="state">paused</span></span>
+      </div>
+      <div class="instructions">
+        <h3>How to test side-by-side:</h3>
+        <ol>
+          <li>Open <code>chrome://extensions</code> in your browser and click <b>Reload</b> on SyncWatch (or enable <b>Developer mode</b> and click <b>Load unpacked</b> to select <code>syncwatch/extension</code>).</li>
+          <li>Open this page (<code>http://localhost:8080</code>) in <b>two side-by-side windows</b>.</li>
+          <li>Click the floating <b>🎬 SyncWatch</b> pill at the bottom-right of each window, type room name <code>party</code>, and click <b>Join Room</b>.</li>
+          <li>Press <b>Spacebar</b> on Window A:
+            <ul>
+              <li>Window A's video pauses immediately.</li>
+              <li>Window B's video pauses instantly across the server.</li>
+              <li>Both floating widgets display the updated <code>⏸️ PAUSED</code> status and sync toast.</li>
+            </ul>
+          </li>
+          <li>Press <b>Spacebar</b> again to resume playback across both windows!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const v = document.getElementById('player');
+    const timeEl = document.getElementById('time');
+    const stateEl = document.getElementById('state');
+
+    function update() {
+      timeEl.textContent = v.currentTime.toFixed(2);
+      stateEl.textContent = v.paused ? 'paused' : 'playing';
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  </script>
+</body>
+</html>

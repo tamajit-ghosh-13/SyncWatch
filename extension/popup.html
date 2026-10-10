@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 290px;
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 14px;
+      background: #121215;
+      color: #eee;
+      margin: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mode-tabs {
+      display: flex;
+      gap: 4px;
+      background: #1c1c24;
+      padding: 3px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 6px;
+      border: none;
+      background: transparent;
+      color: #a1a1aa;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: #272733;
+      color: #fff;
+    }
+    label {
+      font-size: 11px;
+      color: #a1a1aa;
+      text-transform: uppercase;
+      margin-top: 8px;
+      display: block;
+    }
+    input, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      margin: 4px 0 8px 0;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #1c1c22;
+      color: #eee;
+      font-size: 13px;
+    }
+    input:focus {
+      border-color: #e50914;
+      outline: none;
+    }
+    button {
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    #btn-create {
+      background: #e50914;
+      color: #fff;
+    }
+    #btn-join {
+      background: #2563eb;
+      color: #fff;
+    }
+    #leave {
+      background: #27272a;
+      color: #d4d4d8;
+    }
+    #st {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #4ade80;
+      line-height: 1.4;
+    }
+    .hint {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #27272a;
+      font-size: 11px;
+      color: #71717a;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🎬 SyncWatch</div>
+    <span id="role-tag" style="font-size: 10px; background: #27272a; padding: 2px 6px; border-radius: 4px;">Lobby</span>
+  </div>
+
+  <div class="mode-tabs">
+    <button class="tab-btn active" id="tab-create">👑 Create Room</button>
+    <button class="tab-btn" id="tab-join">🚀 Join Room</button>
+  </div>
+
+  <label>Server URL</label>
+  <input id="server" value="wss://sensitive-village-sincere.ngrok-free.dev">
+
+  <div id="sec-create">
+    <label>Custom Code (Optional)</label>
+    <input id="create-room" placeholder="Auto-generated if empty">
+    <button id="btn-create">👑 Create Room (Host)</button>
+  </div>
+
+  <div id="sec-join" style="display: none;">
+    <label>Room Code to Join</label>
+    <input id="join-room" placeholder="e.g. PARTY">
+    <button id="btn-join">🚀 Join Room (Member)</button>
+  </div>
+
+  <button id="leave" style="display: none;">Leave Room</button>
+  <div id="st"></div>
+
+  <div class="hint">
+    💡 An in-page popup is also floating on your video window. Press <b>Spacebar</b> on the webpage to toggle pause/play for all peers.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
